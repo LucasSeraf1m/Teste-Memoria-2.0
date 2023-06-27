@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../index.css";
+
 
 class Login extends React.Component {
   render() {
@@ -7,9 +9,8 @@ class Login extends React.Component {
       <body class="bg-degrade">
         <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
           <div class="container-fluid">
-            <a href="/home" class="navbar-brand">
-              Questionários
-            </a>
+          <Link to="/" class="navbar-brand">Questionários</Link>
+
             <button
               type="button"
               class="navbar-toggler"
@@ -19,17 +20,7 @@ class Login extends React.Component {
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-              <div class="navbar-nav">
-                <a href="/home" class="nav-item nav-link active">
-                  Home
-                </a>
-                <a href="/questionarioFazer" class="nav-item nav-link">
-                  Fazer um questionário
-                </a>
-                <a href="/resultados" class="nav-item nav-link">
-                  Resultados
-                </a>
-              </div>
+            
             </div>
           </div>
         </nav>

@@ -1,15 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
+// import Rota from "../backend/routes/rota.route";
 import "../index.css";
 
+// Pra fazer os redirecionamentos das paginas usei Link do React
+
 class Home extends React.Component {
-  render() {
+  render(){ 
     return (
       <body class="bg-degrade">
+        
         <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
           <div class="container-fluid">
-            <a href="/home" class="navbar-brand">
+            <Link to="/" class="navbar-brand">
               Questionários
-            </a>
+            </Link>
             <button
               type="button"
               class="navbar-toggler"
@@ -40,24 +45,22 @@ class Home extends React.Component {
               <h4 class="text-white">Crie Testes e Faça Perguntas!</h4>
               <button type="button" class="btn btn-info my-3">
                 {" "}
-                <a href="/login" class="text-decoration-none text-dark">
+                <Link to="/criarTeste" class="text-decoration-none text-dark">
                   Criar Questionário
-                </a>
+                </Link>
               </button>
               <button type="button" class="btn btn-info my-3">
                 {" "}
-                <a
-                  href="/questionarioFazer"
-                  class="text-decoration-none text-dark"
-                >
+                
+                <Link to="responder" class="text-decoration-none text-dark" >
                   Iniciar Questionário
-                </a>
+                </Link>
               </button>
               <button type="button" class="btn btn-info my-3">
                 {" "}
-                <a href="/resultados" class="text-decoration-none text-dark">
+                <Link to="/resultados" class="text-decoration-none text-dark">
                   Resultados
-                </a>
+                </Link>
               </button>
             </div>
           </div>
