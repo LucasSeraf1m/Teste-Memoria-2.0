@@ -11,11 +11,17 @@ render(){
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav">
-              <a href="/home" class="nav-item nav-link">Home</a>
-              <a href="/questionarioFazer" class="nav-item nav-link active">Fazer um questionário</a>
-              <a href="/resultados" class="nav-item nav-link">Resultados</a>
-            </div>
+          <div class="navbar-nav">
+                <Link to="/" class="nav-item nav-link active">
+                  Home
+                </Link>
+                <Link to="/criarTeste" class="nav-item nav-link">
+                  Fazer um questionário
+                </Link>
+                <Link to="/resultados" class="nav-item nav-link">
+                  Resultados
+                </Link>
+              </div>
           </div>
         </div>
       </nav>

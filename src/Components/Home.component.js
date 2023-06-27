@@ -25,15 +25,15 @@ class Home extends React.Component {
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <div class="navbar-nav">
-                <a href="/home" class="nav-item nav-link active">
+                <Link to="/" class="nav-item nav-link active">
                   Home
-                </a>
-                <a href="/questionarioFazer" class="nav-item nav-link">
+                </Link>
+                <Link to="/criarTeste" class="nav-item nav-link">
                   Fazer um questionário
-                </a>
-                <a href="/resultados" class="nav-item nav-link">
+                </Link>
+                <Link to="/resultados" class="nav-item nav-link">
                   Resultados
-                </a>
+                </Link>
               </div>
             </div>
           </div>
