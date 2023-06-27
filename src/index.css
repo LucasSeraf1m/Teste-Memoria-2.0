@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,37 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+/*Cores Personalizadas*/
+:root{
+  --bs-azul: #011533;
+  --bs-roxo: #390076;
+  --bs-cinza: #242424;
+  --bs-branco: #f0f0f0f6;
+}
+
+
+.bg-azul {
+  background-color: var(--bs-azul);
+}
+
+.bg-branco {
+  background-color: var(--bs-branco);
+}
+
+.bg-cinza {
+  background-color: var(--bs-cinza);
+}
+
+.bg-degrade{
+  background-image: linear-gradient(90deg, var(--bs-azul), var(--bs-roxo));
+}
+
+.bg-degrade2{
+  background-image: linear-gradient(90deg, var(--bs-azul), var(--bs-roxo));
+}
+
+ul {
+  list-style-type: none;
 }
