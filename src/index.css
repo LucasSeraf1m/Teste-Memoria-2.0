@@ -20,6 +20,10 @@ code {
   --bs-branco: #f0f0f0f6;
 }
 
+body{
+  background-image: linear-gradient(90deg, var(--bs-azul), var(--bs-roxo));
+}
+
 
 .bg-azul {
   background-color: var(--bs-azul);
