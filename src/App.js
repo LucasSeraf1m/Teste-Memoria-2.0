@@ -5,8 +5,9 @@ import Home from "./Components/Home.component";
 import ResponderTeste from "./Components/ResponderTeste.component";
 import CriarTeste from "./Components/CriarTeste.component";
 import Resultados from "./Components/Resultados.component";
-import Login from "./Components/Login.component";
+import Login from "./Components/LoginUsuario.component";
 import Header from "./Components/Header.component";
+import CadastrarUsuario from "./Components/CadastroUsuario.component";
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
       <Header />
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/cadastrar" element={<CadastrarUsuario/>} />
+
           <Route path="/responder" element={<ResponderTeste />} />
           <Route path="/criarTeste" element={<CriarTeste />} />
           <Route path="/resultados" element={<Resultados />} />
