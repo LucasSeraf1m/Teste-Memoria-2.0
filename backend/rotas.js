@@ -43,19 +43,18 @@ router.post("/login", async(req,res)=>{
         
        const user= await cadastro.findOne({usuario})
 
-console.log("Usuario:",usuario)
-console.log("Usuario banco:",user.usuario)
-console.log("!!!!!!!!!!!!!!!!!!!!!!")
 
 
        if(!user){
        return console.log("usuario não encontrado")
        }
+       else{
+        console.log("usuario encontrado")
+
+       }
        
        const password = await bcrypt.compare(senha,user.senha);
-console.log("senha",senha)
-console.log("Senha banco",user.senha)
-console.log(password)
+
 
        if(!password) {
          return res.status(401).json({ error: 'Senha incorreta' });
@@ -67,15 +66,5 @@ console.log(password)
   return res.status(200).json({ message: 'Login bem-sucedido' });
 
 })
-router.get("/cadastro", async(req,res)=>{
-    //     try{
-    //         const usuario=req.body.usuario
-    //         const senha =req.body.senha
-    // }
-    // catch(error){
-    //     console.log(error)
-    // }
-    res.send("cadastro")
-    
-    })
+
 module.exports=router;
