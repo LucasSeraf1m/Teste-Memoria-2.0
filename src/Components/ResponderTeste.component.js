@@ -1,7 +1,6 @@
 import React from "react";
 
 const ResponderTeste = () => {
-
   var lista = [];
   var perguntas = [];
   document.getElementById("submit").style.display = "none";
@@ -60,8 +59,8 @@ const ResponderTeste = () => {
             if (data[i].idQuestionario === nomeDoItem) {
               lista = data[i];
             }
-          })
-            gerarPergunta();
+          });
+          gerarPergunta();
         });
     });
   }

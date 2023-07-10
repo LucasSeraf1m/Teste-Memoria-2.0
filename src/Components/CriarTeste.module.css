@@ -1,53 +1,49 @@
-.content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 3rem;
-    background: rgba(0, 0, 0, 0.301);
-    
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background: rgba(0, 0, 0, 0.301);
 }
-.content form{
-    display: flex;
-    flex-direction: column;
-gap: 0.2rem;
-
+.content form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
-.content form input{
-   padding: 0.4rem;
-    border: 0;
-    border-radius: 16px;
-    width: 25rem;
-    border: 2px solid transparent;
-    background: rgb(53, 52, 102);
-
+.content form input {
+  padding: 0.4rem;
+  border: 0;
+  border-radius: 16px;
+  width: 25rem;
+  border: 2px solid transparent;
+  background: rgb(53, 52, 102);
 }
-.content form input:hover,.content form button:hover{
-background: rgba(128, 128, 128, 0.11);
-border: 2px solid rgba(0, 0, 22, 0.39);
+.content form input:hover,
+.content form button:hover {
+  background: rgba(128, 128, 128, 0.11);
+  border: 2px solid rgba(0, 0, 22, 0.39);
+}
+.content form button {
+  border: 2px solid transparent;
 
- }
-.content form button{
-    border: 2px solid transparent;
-
-    color: rgba(255, 228, 196, 0.603);
-    padding: 0.3rem;
-     border: 0;
-     border-radius: 16px;
- margin-top: 1.4rem;
- font-weight: 500;
- background: rgb(25, 25, 77);
+  color: rgba(255, 228, 196, 0.603);
+  padding: 0.3rem;
+  border: 0;
+  border-radius: 16px;
+  margin-top: 1.4rem;
+  font-weight: 500;
+  background: rgb(25, 25, 77);
 }
 
-
-.nomeTest{
-    border: 0;
-    margin-bottom: 1rem;
+.nomeTest {
+  border: 0;
+  margin-bottom: 1rem;
 }
-.pergunta{
-    border: 0;
-    margin-bottom: 0.5rem;
+.pergunta {
+  border: 0;
+  margin-bottom: 0.5rem;
 }
-.alternativaCerta{
-    margin-top: 0.5rem;
+.alternativaCerta {
+  margin-top: 0.5rem;
 }
