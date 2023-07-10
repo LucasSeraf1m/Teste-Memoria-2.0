@@ -1,63 +1,9 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
 
-const { Schema } = mongoose;
-
-// Schema para criar cadastro
-const cadastoSchema = new Schema(
-  {
-    usuario: {
-      type: String,
-      required: true,
-    },
-    senha: {
-      type: String,
-      required: true,
-    },
-  },
-  { timestamps: true }
-);
-const cadastro = mongoose.model("cadastro", cadastoSchema);
-// ********************************
-
-const cadastroTesteSchema = new Schema(
-  {
-    teste: {
-      nomeTeste: {
-        type: String,
-        required: true,
-      },
-
-      pergunta: {
-        type: String,
-        required: true,
-      },
-      itemA: {
-        type: String,
-        required: true,
-      },
-      itemB: {
-        type: String,
-        required: true,
-      },
-      itemC: {
-        type: String,
-        required: true,
-      },
-      itemD: {
-        type: String,
-        required: true,
-      },
-      alternativaCerta: {
-        type: String,
-        required: true,
-      },
-    },
-  },
-  { timestamps: true }
-);
-const cadastroTest = mongoose.model("testes", cadastroTesteSchema);
+// importação dos schemas 
+const cadastro=require('./model/cadastrarUsuario')
+const cadastroTest = require('./model/cadastroTeste')
 
 router.post("/cadastro", async (req, res) => {
   try {
@@ -129,5 +75,6 @@ router.post("/cadastroTeste", async (req, res) => {
     res.status(500).send(error);
   }
 });
+
 
 module.exports = router;
