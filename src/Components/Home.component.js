@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
 function Home(){
+
+ 
  
     return (
       <body class="bg-degrade">
@@ -12,7 +14,9 @@ function Home(){
               <h4 class="text-white">Crie Testes e Faça Perguntas!</h4>
               <button type="button" class="btn btn-info my-3">
                 {" "}
-                <Link to="/login" class="text-decoration-none text-dark">
+
+                
+                <Link to="/criarTeste" class="text-decoration-none text-dark">
                   Criar Questionário
                 </Link>
               </button>

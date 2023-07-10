@@ -20,7 +20,9 @@ navigate('/home')
 if(islogin){
     return navigate("/home",{replace:true})
 }
+
   
+
 setUsuario('');
 setSenha('');
 

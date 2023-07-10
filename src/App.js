@@ -15,15 +15,13 @@ function App() {
       <Header />
       <div>
         <Routes>
-        <Route path="/" element={<Home/>} />
-
+          <Route exact path="/" element={<Home/>} />
           <Route path="/home" element={<Home/>} />
           <Route path="/cadastrar" element={<CadastrarUsuario/>} />
-
           <Route path="/responder" element={<ResponderTeste />} />
           <Route path="/criarTeste" element={<CriarTeste />} />
           <Route path="/resultados" element={<Resultados />} />
-          <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
