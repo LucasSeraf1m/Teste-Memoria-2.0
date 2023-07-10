@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
-
-class Home extends React.Component {
-  render(){ 
+function Home(){
+ 
     return (
       <body class="bg-degrade">
         <div class="container my-5 text-center">
@@ -36,7 +35,7 @@ class Home extends React.Component {
         </div>
       </body>
     );
-  }
+  
 }
 
 export default Home;
