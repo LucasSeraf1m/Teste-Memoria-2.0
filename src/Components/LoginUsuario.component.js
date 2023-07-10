@@ -26,6 +26,7 @@ function LoginUsuario() {
 
       setUsuario("");
       setSenha("");
+
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +35,6 @@ function LoginUsuario() {
     <div className={styles.contentLogin}>
       <form onSubmit={hadleSubmit}>
         <h2>Login</h2>
-
         <input
           type="text"
           placeholder="Usuario"
@@ -50,4 +50,5 @@ function LoginUsuario() {
     </div>
   );
 }
+
 export default LoginUsuario;

@@ -22,18 +22,14 @@ function Header() {
               <Link to="/" class="nav-item nav-link active">
                 Home
               </Link>
-              <Link to="/criarTeste" class="nav-item nav-link">
-                Fazer um questionário
+              <Link to="/login" class="nav-item nav-link">
+                Criar um questionário
               </Link>
               <Link to="/resultados" class="nav-item nav-link">
                 Resultados
               </Link>
-
-              <Link to="/login" class="nav-item nav-link">
-                login
-              </Link>
               <Link to="/cadastrar" class="nav-item nav-link">
-                cadastrar
+                Cadastro
               </Link>
             </div>
           </div>

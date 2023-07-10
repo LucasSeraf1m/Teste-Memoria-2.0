@@ -15,7 +15,6 @@ function App() {
       <div>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/cadastrar" element={<CadastrarUsuario />} />
           <Route path="/responder" element={<ResponderTeste />} />
           <Route path="/criarTeste" element={<CriarTeste />} />
