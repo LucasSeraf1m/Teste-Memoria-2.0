@@ -28,6 +28,14 @@ function Header() {
               <Link to="/resultados" class="nav-item nav-link">
                 Resultados
               </Link>
+              
+                <Link to="/login" class="nav-item nav-link">
+                 login
+                </Link>
+                <Link to="/cadastrar" class="nav-item nav-link">
+                 cadastrar
+                </Link>
+            
             </div>
           </div>
         </div>

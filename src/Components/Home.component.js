@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
+function Home(){
 
-class Home extends React.Component {
-  render(){ 
+ 
+ 
     return (
       <body class="bg-degrade">
         <div class="container my-5 text-center">
@@ -13,10 +14,13 @@ class Home extends React.Component {
               <h4 class="text-white">Crie Testes e Faça Perguntas!</h4>
               <button type="button" class="btn btn-info my-3">
                 {" "}
-                <Link to="/login" class="text-decoration-none text-dark">
+
+                
+                <Link to="/criarTeste" class="text-decoration-none text-dark">
                   Criar Questionário
                 </Link>
               </button>
+             
               <button type="button" class="btn btn-info my-3">
                 {" "}
                 
@@ -35,7 +39,7 @@ class Home extends React.Component {
         </div>
       </body>
     );
-  }
+  
 }
 
 export default Home;
