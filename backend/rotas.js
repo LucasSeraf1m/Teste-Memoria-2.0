@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
-// importação dos schemas 
-const cadastro=require('./model/cadastrarUsuario')
-const cadastroTest = require('./model/cadastroTeste')
+// importação dos schemas
+const cadastro = require("./model/cadastrarUsuario");
+const cadastroTest = require("./model/cadastroTeste");
 
 router.post("/cadastro", async (req, res) => {
   try {
@@ -46,26 +46,9 @@ router.post("/login", async (req, res) => {
 
 router.post("/cadastroTeste", async (req, res) => {
   try {
-    const test = {
-      nomeTeste: req.body.nomeTeste,
-      pergunta: req.body.pergunta,
-      itemA: req.body.itemA,
-      itemB: req.body.itemB,
-      itemC: req.body.itemC,
-      itemD: req.body.itemD,
-      alternativaCerta: req.body.alternativaCerta,
-    };
-    const post = new cadastroTest({
-      teste: {
-        nomeTeste: test.nomeTeste,
-        pergunta: test.pergunta,
-        itemA: test.itemA,
-        itemB: test.itemB,
-        itemC: test.itemC,
-        itemD: test.itemD,
-        alternativaCerta: test.alternativaCerta,
-      },
-    });
+    const { testes } = req.body;
+
+    const post = new cadastroTest({ testes });
     await post.save();
 
     console.log(post);
@@ -76,5 +59,14 @@ router.post("/cadastroTeste", async (req, res) => {
   }
 });
 
+router.get('/testes', async (req, res) => {
+  try {
+    const testes = await cadastroTest.find(); // Buscar todos os documentos da coleção de testes
+    res.status(200).json(testes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao buscar os testes.' });
+  }
+});
 
 module.exports = router;

@@ -1,92 +1,71 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import CriarPergunta from './CriarPergunta.component';
 
-import styles from "./CriarTeste.module.css";
-function CriarTeste() {
-  const [nomeTeste, setNomeTeste] = useState("");
-  const [pergunta, setPergunta] = useState("");
-  const [itemA, setItemA] = useState("");
-  const [itemB, setItemB] = useState("");
-  const [itemC, setItemC] = useState("");
-  const [itemD, setItemD] = useState("");
-  // const [perguntas,setPerguntas]=useState([])
-  const [alternativaCerta, setAlternativaCerta] = useState("");
+const CriarTeste = () => {
+  const [nomeTeste, setNomeTeste] = useState('');
+  const [testes, setTestes] = useState([]);
+  const [mostrarCriarPergunta, setMostrarCriarPergunta] = useState(false);
+  const [testeSelecionado, setTesteSelecionado] = useState('');
 
-  // setPerguntas(pergunta,itemA,itemB,itemC,itemD,alternativaCerta)
+  useEffect(() => {
+    const fetchTestes = async () => {
+      try {
+        const response = await axios.get("http://localhost:1000/api/testes");
+        setTestes(response.data.map((item) => item.testes[0])); // Ajuste para extrair o primeiro item do array "testes"
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+    fetchTestes();
+  }, []);
 
+  const handleNomeTesteChange = (event) => {
+    setNomeTeste(event.target.value);
+  };
+
+  const handleCriarTeste = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:1000/api/cadastroTeste",
-        { nomeTeste, pergunta, itemA, itemB, itemC, itemD, alternativaCerta }
-      );
-      // setNomeTeste('')
-      setPergunta("");
-      setItemA("");
-      setItemB("");
-      setItemC("");
-      setItemD("");
-      setAlternativaCerta("");
-      console.log(pergunta, itemA, itemB, itemC, itemD, alternativaCerta);
+      const novoTeste = {
+        nomeTeste,
+        perguntas: [],
+      };
+
+      const response = await axios.post('/cadastroTeste', { testes: [novoTeste] });
+      setTestes([...testes, response.data]);
+      setNomeTeste('');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }
+  };
+
+  const handleSelecionarTeste = (nomeTeste) => {
+    setTesteSelecionado(nomeTeste);
+    setMostrarCriarPergunta(true);
+  };
 
   return (
-    <div className={styles.content}>
-      <form onSubmit={handleSubmit}>
-        <input
-          className={styles.nomeTest}
-          value={nomeTeste}
-          type="text"
-          placeholder="Nome do teste"
-          onChange={(e) => setNomeTeste(e.target.value)}
-        ></input>
-        <input
-          className={styles.pergunta}
-          value={pergunta}
-          type="text"
-          placeholder="pergunta"
-          onChange={(e) => setPergunta(...pergunta, e.target.value)}
-        ></input>
-        <input
-          value={itemA}
-          type="text"
-          placeholder="item A"
-          onChange={(e) => setItemA(e.target.value)}
-        ></input>
-        <input
-          value={itemB}
-          type="text"
-          placeholder="item B"
-          onChange={(e) => setItemB(e.target.value)}
-        ></input>
-        <input
-          value={itemC}
-          type="text"
-          placeholder="item C"
-          onChange={(e) => setItemC(e.target.value)}
-        ></input>
-        <input
-          value={itemD}
-          type="text"
-          placeholder="item D"
-          onChange={(e) => setItemD(e.target.value)}
-        ></input>
-        <input
-          className={styles.alternativaCerta}
-          value={alternativaCerta}
-          type="text"
-          placeholder="alternativa certa"
-          onChange={(e) => setAlternativaCerta(e.target.value)}
-        ></input>
-        <button type="submit">Adicionar</button>
-      </form>
+    <div>
+      <h2>Criar Teste</h2>
+      <div>
+        <label>Nome do Teste:</label>
+        <input type="text" value={nomeTeste} onChange={handleNomeTesteChange} />
+        <button onClick={handleCriarTeste}>Criar</button>
+      </div>
+
+      <h2>Testes Criados:</h2>
+      <ul>
+        {testes.map((teste) => (
+          <li key={teste._id} onClick={() => handleSelecionarTeste(teste.nomeTeste)}>
+            {teste.nomeTeste}
+          </li>
+        ))}
+      </ul>
+
+      {mostrarCriarPergunta && <CriarPergunta nomeTeste={testeSelecionado} />}
     </div>
   );
-}
+};
 
 export default CriarTeste;

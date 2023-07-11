@@ -7,6 +7,7 @@ import Resultados from "./Components/Resultados.component";
 import Login from "./Components/LoginUsuario.component";
 import Header from "./Components/Header.component";
 import CadastrarUsuario from "./Components/CadastroUsuario.component";
+import CriarPergunta from "./Components/CriarPergunta.component";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/cadastrar" element={<CadastrarUsuario />} />
           <Route path="/responder" element={<ResponderTeste />} />
           <Route path="/criarTeste" element={<CriarTeste />} />
+          <Route path="/CriarPergunta" element={<CriarPergunta />} />
           <Route path="/resultados" element={<Resultados />} />
           <Route path="/login" element={<Login />} />
         </Routes>
