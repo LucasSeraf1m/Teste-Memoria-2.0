@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styles from "./CriarTeste.module.css";
 import CriarPergunta from './CriarPergunta.component';
 
 const CriarTeste = () => {
   const [nomeTeste, setNomeTeste] = useState('');
   const [testes, setTestes] = useState([]);
   const [mostrarCriarPergunta, setMostrarCriarPergunta] = useState(false);
-  const [testeSelecionado, setTesteSelecionado] = useState('');
+  const [testeSelecionado, setTesteSelecionado] = useState(null);
 
   useEffect(() => {
     const fetchTestes = async () => {
@@ -32,7 +33,7 @@ const CriarTeste = () => {
         perguntas: [],
       };
 
-      const response = await axios.post('/cadastroTeste', { testes: [novoTeste] });
+      const response = await axios.post('http://localhost:1000/api/cadastroTeste', { testes: [novoTeste] });
       setTestes([...testes, response.data]);
       setNomeTeste('');
     } catch (error) {
@@ -41,16 +42,28 @@ const CriarTeste = () => {
   };
 
   const handleSelecionarTeste = (nomeTeste) => {
-    setTesteSelecionado(nomeTeste);
+    const testeSelecionado = testes.find((teste) => teste.nomeTeste === nomeTeste);
+    setTesteSelecionado(testeSelecionado);
     setMostrarCriarPergunta(true);
+  };
+
+  const atualizarPerguntas = (perguntasAtualizadas) => {
+    const testeAtualizado = { ...testeSelecionado };
+    testeAtualizado.perguntas = perguntasAtualizadas;
+    const testesAtualizados = testes.map((teste) => {
+      if (teste._id === testeAtualizado._id) {
+        return testeAtualizado;
+      }
+      return teste;
+    });
+    setTestes(testesAtualizados);
   };
 
   return (
     <div>
       <h2>Criar Teste</h2>
       <div>
-        <label>Nome do Teste:</label>
-        <input type="text" value={nomeTeste} onChange={handleNomeTesteChange} />
+        <input type="text" value={nomeTeste} onChange={handleNomeTesteChange} placeholder="Nome do Teste"/>
         <button onClick={handleCriarTeste}>Criar</button>
       </div>
 
@@ -63,7 +76,12 @@ const CriarTeste = () => {
         ))}
       </ul>
 
-      {mostrarCriarPergunta && <CriarPergunta nomeTeste={testeSelecionado} />}
+      {mostrarCriarPergunta && (
+        <CriarPergunta
+          testeSelecionado={testeSelecionado}
+          onPerguntasAtualizadas={atualizarPerguntas}
+        />
+      )}
     </div>
   );
 };

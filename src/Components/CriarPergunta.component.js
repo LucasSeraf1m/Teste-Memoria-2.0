@@ -2,18 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import styles from "./CriarTeste.module.css";
 
-const CriarPergunta = () => {
-  const [nomeTeste, setNomeTeste] = useState("");
-  const [perguntas, setPerguntas] = useState([
-    {
-      pergunta: "",
-      itemA: "",
-      itemB: "",
-      itemC: "",
-      itemD: "",
-      alternativaCerta: "",
-    },
-  ]);
+const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
+  const [perguntas, setPerguntas] = useState(testeSelecionado.perguntas);
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
@@ -24,19 +14,21 @@ const CriarPergunta = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const response = await axios.post(
-        "http://localhost:1000/api/cadastroTeste",
-        { testes: [{ nomeTeste, perguntas }] }
-      );
-      console.log(response.data);
-      // Lógica adicional após o cadastro do teste
+      const testeAtualizado = {
+        ...testeSelecionado,
+        perguntas: perguntas,
+      };
+  
+      await axios.put(`http://localhost:1000/api/cadastroTeste/${testeSelecionado._id}`, testeAtualizado);
+      onPerguntasAtualizadas(perguntas);
+      // Lógica adicional após a atualização do teste
     } catch (error) {
       console.error(error);
       // Tratamento de erros
     }
-  };
+  };  
 
   const addPergunta = () => {
     setPerguntas([
@@ -61,15 +53,15 @@ const CriarPergunta = () => {
   return (
     <div className={styles.content}>
       <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            value={nomeTeste}
-            onChange={(e) => setNomeTeste(e.target.value)}
-            className={styles.nomeTest}
-            placeholder="Nome do teste"
-          />
-        </div>
+        {testeSelecionado && (
+          <div>
+            <input
+              type="text"
+              value={testeSelecionado.nomeTeste}
+              disabled
+            />
+          </div>
+        )}
 
         {perguntas.map((pergunta, index) => (
           <div key={index}>

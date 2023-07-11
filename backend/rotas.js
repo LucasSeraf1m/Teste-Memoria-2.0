@@ -69,4 +69,23 @@ router.get('/testes', async (req, res) => {
   }
 });
 
+router.put("/cadastroTeste/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const testeAtualizado = req.body;
+
+    // Encontra e atualiza o teste pelo ID
+    const updatedTeste = await cadastroTest.findOneAndUpdate(
+      { _id: id },
+      testeAtualizado,
+      { new: true }
+    );
+
+    res.json(updatedTeste);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Ocorreu um erro ao atualizar o teste." });
+  }
+});
+
 module.exports = router;
