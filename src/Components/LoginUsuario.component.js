@@ -18,7 +18,7 @@ function LoginUsuario() {
       });
       setIsLogin(true);
 
-      navigate("/home");
+      navigate("/criarTeste");
 
       if (islogin) {
         return navigate("/home", { replace: true });
@@ -41,7 +41,7 @@ function LoginUsuario() {
           onChange={(e) => setUsuario(e.target.value)}
         ></input>
         <input
-          type="text"
+          type="password"
           placeholder="Senha"
           onChange={(e) => setSenha(e.target.value)}
         ></input>

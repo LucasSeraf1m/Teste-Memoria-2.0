@@ -61,21 +61,21 @@ const CriarTeste = () => {
 
   return (
     <div>
-      <h2>Criar Teste</h2>
-      <div>
-        <input type="text" value={nomeTeste} onChange={handleNomeTesteChange} placeholder="Nome do Teste"/>
-        <button onClick={handleCriarTeste}>Criar</button>
+      <div className={styles.divCriaTeste}>
+        <h2>Criar Teste</h2>
+        <div>
+          <input type="text" value={nomeTeste} onChange={handleNomeTesteChange} placeholder="Nome do Teste"/>
+          <button onClick={handleCriarTeste}>Criar</button>
+        </div>
+        <h3>Testes Criados:</h3>
+        <ul className={styles.listarTeste}>
+          {testes.map((teste) => (
+            <li key={teste._id} onClick={() => handleSelecionarTeste(teste.nomeTeste)}>
+              {teste.nomeTeste}
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <h2>Testes Criados:</h2>
-      <ul>
-        {testes.map((teste) => (
-          <li key={teste._id} onClick={() => handleSelecionarTeste(teste.nomeTeste)}>
-            {teste.nomeTeste}
-          </li>
-        ))}
-      </ul>
-
       {mostrarCriarPergunta && (
         <CriarPergunta
           testeSelecionado={testeSelecionado}

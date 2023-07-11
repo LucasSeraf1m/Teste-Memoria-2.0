@@ -54,7 +54,7 @@ const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
     <div className={styles.content}>
       <form onSubmit={handleSubmit}>
         {testeSelecionado && (
-          <div>
+          <div className={styles.nomeTeste}>
             <input
               type="text"
               value={testeSelecionado.nomeTeste}
@@ -62,7 +62,7 @@ const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
             />
           </div>
         )}
-
+        <div className={styles.listaPerguntas}>  
         {perguntas.map((pergunta, index) => (
           <div key={index}>
             <h3>Pergunta {index + 1}:</h3>
@@ -128,7 +128,7 @@ const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
             )}
           </div>
         ))}
-
+        </div>
         <button onClick={addPergunta}>Adicionar Pergunta</button>
         <button type="submit">Salvar</button>
       </form>

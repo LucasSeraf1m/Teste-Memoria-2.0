@@ -22,13 +22,11 @@
 .content form input:hover,
 .content form button:hover {
   background: rgba(128, 128, 128, 0.11);
-  border: 2px solid rgba(0, 0, 22, 0.39);
 }
 .content form button {
   border: 2px solid transparent;
   color: white;
-  padding: 0.3rem;
-  border: 0;
+  padding: 0.5rem;
   border-radius: 16px;
   margin-top: 1.4rem;
   font-weight: 500;
@@ -50,11 +48,11 @@ h3, h2, input, label, li {
 }
 input{
   padding: 0.4rem;
-  border: 0;
   border-radius: 16px;
   width: 15rem;
   border: 2px solid transparent;
   background: rgb(53, 52, 102);
+  gap: 0.3rem;
 }
 button{
   border: 2px solid transparent;
@@ -64,4 +62,28 @@ button{
   border-radius: 16px;
   font-weight: 500;
   background: rgb(25, 25, 77);
+}
+.divCriaTeste{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  gap: 0.9rem;
+}
+.listarTeste{
+  display: flex;
+  gap: 0.9rem;
+}
+.listaPerguntas{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem;
+  gap: 0.9rem;
+}
+.nomeTeste{
+  margin-left: auto;
+  margin-right: auto;
 }
