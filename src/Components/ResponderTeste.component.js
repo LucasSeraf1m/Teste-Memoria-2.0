@@ -1,251 +1,90 @@
-import React from "react";
+import React, { useState } from "react";
 
-const ResponderTeste = () => {
-  var lista = [];
-  var perguntas = [];
-  document.getElementById("submit").style.display = "none";
-  document.getElementById("nova-pergunta").style.display = "none";
-  var respostas = [];
-  var index = 0;
-  fetch("http://localhost:8000/getQuestionarios?cache=" + Date.now())
-    .then((response) => response.json())
-    .then((data) => {
-      if (Object.keys(data).length === 0) {
-        window.location.href = "/home";
-        window.alert("lista vazia");
-      }
+const ResponderTeste = ({ teste }) => {
+  const [respostas, setRespostas] = useState({});
+  const [pontuacao, setPontuacao] = useState(0);
 
-      for (var i = 0; i < data.length; i++) {
-        var ItemDiv = document.createElement("div");
-        ItemDiv.setAttribute("class", "card text-center m-2");
+  const handleRespostaChange = (perguntaId, alternativa) => {
+    setRespostas((prevRespostas) => ({
+      ...prevRespostas,
+      [perguntaId]: alternativa,
+    }));
+  };
 
-        var itemDivHeader = document.createElement("div");
-        itemDivHeader.setAttribute("class", "card-header");
-        itemDivHeader.innerHTML = "Questionário";
-        ItemDiv.appendChild(itemDivHeader);
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-        var itemText = document.createElement("h4");
-        itemText.setAttribute("class", "card-title");
-
-        itemText.innerText = data[i].NomeTeste;
-        ItemDiv.appendChild(itemText);
-
-        var novoButton = document.createElement("button");
-        novoButton.setAttribute("class", "botao-item btn btn-primary");
-        novoButton.setAttribute("name", "botao-iniciar");
-        novoButton.setAttribute("value", data[i].idQuestionario);
-
-        novoButton.innerText = "Iniciar";
-        ItemDiv.appendChild(novoButton);
-
-        document.getElementById("lista-questionarios").appendChild(ItemDiv);
-
-        adicionarEventoDeCliqueAoBotao(novoButton);
+    let novaPontuacao = 0;
+    teste.perguntas.forEach((pergunta) => {
+      if (respostas[pergunta._id] === pergunta.alternativaCerta) {
+        novaPontuacao += 1;
       }
     });
 
-  function adicionarEventoDeCliqueAoBotao(botao) {
-    const nomeDoItem = botao.value;
-
-    botao.addEventListener("click", () => {
-      document.getElementById("nova-pergunta").style.display = "inline";
-
-      document.getElementById("container-pai").style.display = "none";
-
-      fetch("http://localhost:8000/getQuestionarios?cache=")
-        .then((response) => response.json())
-        .then((data) => {
-          data.forEach((pergunta, i) => {
-            if (data[i].idQuestionario === nomeDoItem) {
-              lista = data[i];
-            }
-          });
-          gerarPergunta();
-        });
-    });
-  }
-  function gerarPergunta() {
-    const perguntas = document.querySelectorAll("input[type=radio]:checked");
-    perguntas.forEach((pergunta) => {
-      respostas.push({
-        pergunta: pergunta.name,
-        resposta: pergunta.value,
-      });
-    });
-    var pergunta = lista;
-    let html = "";
-
-    html += `
-      <div class="container-fluid mt-5 mb-2">
-        <div class="row">
-          <div class="col-md-12">
-              <div class="card bg-cinza">
-                <h5 class="card-header"></h5>
-                <div class="card-body bg-cinza">
-                  <h3 class="text-uppercase text-white">${index + 1}. ${
-      pergunta.perguntas[index].pergunta
-    }</h3>
-                    <ul>
-                      <div id="resposta">
-                        <li class="d-flex">
-                          <p class="text-white">a)</p>
-                          <input class="form-check-input" type="radio" id="${index}-a" name="${index}" value="${
-      pergunta.perguntas[index].respostaA
-    }"/>
-                          <label class="mx-2 text-white" for="${index}-a">${
-      pergunta.perguntas[index].respostaA
-    }</label>
-                        </li>
-                      </div>
-                      <div id="resposta">
-                        <li class="d-flex">
-                          <p class="text-white">b)</p>
-                          <input class="form-check-input" type="radio" id="${index}-b" name="${index}" value="${
-      pergunta.perguntas[index].respostaB
-    }"/>
-                          <label class="mx-2 text-white" for="${index}-b">${
-      pergunta.perguntas[index].respostaB
-    }</label>
-                        </li> 
-                      </div>
-                      <div id="resposta">
-                        <li class="d-flex">
-                          <p class="text-white">c)</p>
-                          <input class="form-check-input" type="radio" id="${index}-c" name="${index}" value="${
-      pergunta.perguntas[index].respostaC
-    }" />
-                          <label class="mx-2 text-white" for="${index}-c">${
-      pergunta.perguntas[index].respostaC
-    }</label>
-                        </li> 
-                      </div>
-                      <div id="resposta">
-                        <li class="d-flex">
-                          <p class="text-white">d)</p>
-                          <input class="form-check-input" type="radio" id="${index}-d" name="${index}" value="${
-      pergunta.perguntas[index].respostaD
-    }" />
-                          <label class="mx-2 text-white" for="${index}-d">${
-      pergunta.perguntas[index].respostaD
-    }</label>
-                        </li> 
-                      </div>
-                      <div id="resposta">
-                        <li class="d-flex">
-                          <p class="text-white">e)</p>
-                          <input class="form-check-input" type="radio" id="${index}-e" name="${index}" value="${
-      pergunta.perguntas[index].respostaE
-    }" />
-                          <label class="mx-2 text-white" for="${index}-e">${
-      pergunta.perguntas[index].respostaE
-    }</label>
-                        </li>
-                      </div>
-                    </ul>
-                </div>
-              </div>
-          </div>
-        </div>
-    </div> 
-   
-     `;
-
-    index++;
-
-    if (index === lista.perguntas.length) {
-      document.getElementById("nova-pergunta").style.display = "none";
-      document.getElementById("submit").style.display = "inline";
-    }
-    document.getElementById("lista-perguntas").innerHTML = html;
-  }
-
-  var perguntaSubmit = document.getElementById("nova-pergunta");
-
-  perguntaSubmit.addEventListener("click", () => {
-    gerarPergunta();
-  });
-  var btnTermina = document
-    .getElementById("submit")
-    .addEventListener("click", () => {
-      const perguntas = document.querySelectorAll("input[type=radio]:checked");
-
-      document.getElementById("nova-pergunta").style.display = "none";
-      document.getElementById("submit").style.display = "none";
-
-      perguntas.forEach((pergunta) => {
-        respostas.push({
-          pergunta: pergunta.name,
-          resposta: pergunta.value,
-        });
-      });
-
-      var respostacerta = 0;
-
-      for (let i = 0; i < respostas.length; i++) {
-        if (respostas[i].resposta === lista.perguntas[i].respostaCerta) {
-          respostacerta++;
-        }
-      }
-
-      const dataAtual = new Date();
-      const horaFormatada = dataAtual.toLocaleTimeString();
-      const novoJSON = {
-        NomeTeste: lista.NomeTeste,
-        qtd_perguntas: lista.perguntas.length,
-        qtd_acertos: respostacerta,
-        dataRealizada: horaFormatada,
-      };
-
-      const novoJSONString = JSON.stringify(novoJSON, null, 2);
-      fetch("http://localhost:8000/postResultados", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: novoJSONString,
-      });
-
-      window.location.replace("http://localhost:3000/home");
-    });
+    setPontuacao(novaPontuacao);
+  };
 
   return (
-    <body class="bg-degrade">
-      <div id="container-pai" class="container my-5">
-        <div class="row">
-          <div class="col-md-12 d-flex justify-content-center">
-            <div
-              id="lista-questionarios"
-              class="d-flex justify-content-md-center p-5"
-            ></div>
+    <div>
+      <h2>Responder Teste</h2>
+      <form onSubmit={handleSubmit}>
+        {teste.perguntas.map((pergunta) => (
+          <div key={pergunta._id}>
+            <h3>{pergunta.pergunta}</h3>
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  name={`pergunta_${pergunta._id}`}
+                  value={pergunta.itemA}
+                  checked={respostas[pergunta._id] === pergunta.itemA}
+                  onChange={() => handleRespostaChange(pergunta._id, pergunta.itemA)}
+                />
+                {pergunta.itemA}
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  name={`pergunta_${pergunta._id}`}
+                  value={pergunta.itemB}
+                  checked={respostas[pergunta._id] === pergunta.itemB}
+                  onChange={() => handleRespostaChange(pergunta._id, pergunta.itemB)}
+                />
+                {pergunta.itemB}
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  name={`pergunta_${pergunta._id}`}
+                  value={pergunta.itemC}
+                  checked={respostas[pergunta._id] === pergunta.itemC}
+                  onChange={() => handleRespostaChange(pergunta._id, pergunta.itemC)}
+                />
+                {pergunta.itemC}
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  name={`pergunta_${pergunta._id}`}
+                  value={pergunta.itemD}
+                  checked={respostas[pergunta._id] === pergunta.itemD}
+                  onChange={() => handleRespostaChange(pergunta._id, pergunta.itemD)}
+                />
+                {pergunta.itemD}
+              </label>
+            </div>
           </div>
-        </div>
-      </div>
-      <div id="lista-perguntas"></div>
-      <div class="container-fluid">
-        <div class="row d-flex">
-          <div class="col-md-6">
-            <button id="nova-pergunta" class="btn-perguntas">
-              Proxima Pergunta
-            </button>
-          </div>
-          <div class="col-md-6 text-end">
-            <button id="submit" class="btn-perguntas">
-              Finalizar Questionário
-            </button>
-          </div>
-        </div>
-      </div>
-      <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
-        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
-        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
-        crossorigin="anonymous"
-      ></script>
-    </body>
+        ))}
+        <button type="submit">Enviar Respostas</button>
+      </form>
+      <p>Pontuação: {pontuacao}</p>
+    </div>
   );
 };
 

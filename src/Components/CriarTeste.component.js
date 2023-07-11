@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styles from "./CriarTeste.module.css";
-import CriarPergunta from './CriarPergunta.component';
+import CriarPergunta from "./CriarPergunta.component";
 
 const CriarTeste = () => {
-  const [nomeTeste, setNomeTeste] = useState('');
+  const [nomeTeste, setNomeTeste] = useState("");
   const [testes, setTestes] = useState([]);
   const [mostrarCriarPergunta, setMostrarCriarPergunta] = useState(false);
   const [testeSelecionado, setTesteSelecionado] = useState(null);
@@ -33,16 +33,21 @@ const CriarTeste = () => {
         perguntas: [],
       };
 
-      const response = await axios.post('http://localhost:1000/api/cadastroTeste', { testes: [novoTeste] });
+      const response = await axios.post(
+        "http://localhost:1000/api/cadastroTeste",
+        { testes: [novoTeste] }
+      );
       setTestes([...testes, response.data]);
-      setNomeTeste('');
+      setNomeTeste("");
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleSelecionarTeste = (nomeTeste) => {
-    const testeSelecionado = testes.find((teste) => teste.nomeTeste === nomeTeste);
+    const testeSelecionado = testes.find(
+      (teste) => teste.nomeTeste === nomeTeste
+    );
     setTesteSelecionado(testeSelecionado);
     setMostrarCriarPergunta(true);
   };
@@ -57,26 +62,34 @@ const CriarTeste = () => {
       return teste;
     });
     setTestes(testesAtualizados);
-  };
+  };  
 
   return (
     <div>
       <div className={styles.divCriaTeste}>
         <h2>Criar Teste</h2>
         <div>
-          <input type="text" value={nomeTeste} onChange={handleNomeTesteChange} placeholder="Nome do Teste"/>
+          <input
+            type="text"
+            value={nomeTeste}
+            onChange={handleNomeTesteChange}
+            placeholder="Nome do Teste"
+          />
           <button onClick={handleCriarTeste}>Criar</button>
         </div>
         <h3>Testes Criados:</h3>
         <ul className={styles.listarTeste}>
           {testes.map((teste) => (
-            <li key={teste._id} onClick={() => handleSelecionarTeste(teste.nomeTeste)}>
+            <li
+              key={teste._id}
+              onClick={() => handleSelecionarTeste(teste.nomeTeste)}
+            >
               {teste.nomeTeste}
             </li>
           ))}
         </ul>
       </div>
-      {mostrarCriarPergunta && (
+      {mostrarCriarPergunta && testeSelecionado && (
         <CriarPergunta
           testeSelecionado={testeSelecionado}
           onPerguntasAtualizadas={atualizarPerguntas}

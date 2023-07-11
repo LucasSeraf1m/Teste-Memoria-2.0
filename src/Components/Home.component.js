@@ -18,7 +18,7 @@ function Home() {
 
             <button type="button" class="btn btn-info my-3">
               {" "}
-              <Link to="/responder" class="text-decoration-none text-dark">
+              <Link to="/listarTestes" class="text-decoration-none text-dark">
                 Iniciar Questionário
               </Link>
             </button>

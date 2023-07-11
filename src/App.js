@@ -8,6 +8,7 @@ import Login from "./Components/LoginUsuario.component";
 import Header from "./Components/Header.component";
 import CadastrarUsuario from "./Components/CadastroUsuario.component";
 import CriarPergunta from "./Components/CriarPergunta.component";
+import ListarTestes from "./Components/ListarTestes.component";
 
 function App() {
   return (
@@ -17,11 +18,12 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/cadastrar" element={<CadastrarUsuario />} />
-          <Route path="/responder" element={<ResponderTeste />} />
+          <Route path="/responderTeste" element={<ResponderTeste />} />
           <Route path="/criarTeste" element={<CriarTeste />} />
-          <Route path="/CriarPergunta" element={<CriarPergunta />} />
+          <Route path="/criarPergunta" element={<CriarPergunta />} />
           <Route path="/resultados" element={<Resultados />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/listarTestes" element={<ListarTestes />} />
         </Routes>
       </div>
     </Router>
