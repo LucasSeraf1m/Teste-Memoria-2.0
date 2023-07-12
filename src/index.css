@@ -50,5 +50,6 @@ ul {
   list-style-type: none;
 }
 .col-md-12 button{
-  margin: 0.2rem;
+  width: 12rem;
+  border-radius: 16px;
 }

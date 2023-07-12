@@ -1,0 +1,22 @@
+.content{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(128, 128, 128, 0.062);
+
+}
+h2{
+    margin: 1rem;
+    color: rgb(185, 185, 185);
+    font-weight: 800;
+}
+.content li{
+    font-weight: 500;
+background: rgba(163, 159, 159, 0.027);
+padding: 2rem;
+text-align: center;
+width: 30rem;
+margin: 0.1rem;
+border-radius: 2rem;
+}

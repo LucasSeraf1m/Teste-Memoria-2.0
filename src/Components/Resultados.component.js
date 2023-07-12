@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import styles from "./Resultados.module.css"
 
 const Resultados = () => {
   const [testesRealizados, setTestesRealizados] = useState([]);
@@ -29,8 +30,9 @@ const Resultados = () => {
 
   return (
     <div>
+      <ul  className={styles.content}>
       <h2>Resultados</h2>
-      <ul>
+
         {ordenarTestesRealizados().map((testeRealizado) => (
           <li key={testeRealizado._id}>
             <p>Nome do Teste: {testeRealizado.nomeTeste}</p>

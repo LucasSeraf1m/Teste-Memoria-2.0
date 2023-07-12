@@ -65,11 +65,11 @@ const ResponderTeste = ({ teste, onVoltar }) => {
   };
 
   return (
-    <div>
+    <div className={styles.content}>
       <h2>Responder Teste</h2>
       <form onSubmit={handleSubmit}>
         {perguntasEmbaralhadas.map((pergunta) => (
-          <div key={pergunta._id}>
+          <div className={styles.pergunta} key={pergunta._id}>
             <h3>{pergunta.pergunta}</h3>
             <div>
               <label>
@@ -137,12 +137,15 @@ const ResponderTeste = ({ teste, onVoltar }) => {
             </div>
           </div>
         ))}
+        <div className={styles.botoes}>
         <button type="submit" disabled={submetido}>
-          Enviar Respostas
+          Enviar
         </button>
         <button type="button" onClick={handleVoltar}>
           Voltar
         </button>
+        </div>
+      
       </form>
       {submetido && <p>Pontuação: {pontuacao}</p>}
     </div>
