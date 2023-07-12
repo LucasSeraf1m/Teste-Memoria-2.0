@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import ResponderTeste from "./ResponderTeste.component";
 import axios from 'axios';
 
-const ListarTeste = ({ onTesteSelecionado }) => {
+const ListarTeste = () => {
   const [testes, setTestes] = useState([]);
+  const [testeSelecionado, setTesteSelecionado] = useState(null);
 
   useEffect(() => {
     const fetchTestes = async () => {
@@ -18,19 +20,29 @@ const ListarTeste = ({ onTesteSelecionado }) => {
   }, []);
 
   const handleSelecionarTeste = (teste) => {
-    onTesteSelecionado(teste);
+    setTesteSelecionado(teste);
+  };
+
+  const handleVoltar = () => {
+    setTesteSelecionado(null);
   };
 
   return (
     <div>
-      <h2>Lista de Testes</h2>
-      <ul>
-        {testes.map((teste) => (
-          <li key={teste._id} onClick={() => handleSelecionarTeste(teste)}>
-            {teste.nomeTeste}
-          </li>
-        ))}
-      </ul>
+      {!testeSelecionado ? (
+        <div>
+          <h2>Lista de Testes</h2>
+          <ul>
+            {testes.map((teste) => (
+              <li key={teste._id} onClick={() => handleSelecionarTeste(teste)}>
+                {teste.nomeTeste}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <ResponderTeste teste={testeSelecionado} onVoltar={handleVoltar} />
+      )}
     </div>
   );
 };
