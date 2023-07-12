@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "./CriarTeste.module.css";
+import styles from "./CriarPergunta.module.css";
 
 const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
   const [perguntas, setPerguntas] = useState([]);
@@ -82,6 +82,8 @@ const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
               </div>
               <div>
                 <input
+                 className={styles.item}
+
                   type="text"
                   name="itemA"
                   value={pergunta.itemA}
@@ -91,6 +93,8 @@ const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
               </div>
               <div>
                 <input
+                                 className={styles.item}
+
                   type="text"
                   name="itemB"
                   value={pergunta.itemB}
@@ -100,6 +104,8 @@ const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
               </div>
               <div>
                 <input
+                   className={styles.item}
+
                   type="text"
                   name="itemC"
                   value={pergunta.itemC}
@@ -109,6 +115,8 @@ const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
               </div>
               <div>
                 <input
+                                 className={styles.item}
+
                   type="text"
                   name="itemD"
                   value={pergunta.itemD}
@@ -118,6 +126,8 @@ const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
               </div>
               <div>
                 <input
+                                 className={styles.item}
+
                   type="text"
                   name="alternativaCerta"
                   value={pergunta.alternativaCerta}

@@ -1,0 +1,39 @@
+.content{
+    background: rgba(128, 128, 128, 0.041);
+    height: 100vh;
+}
+h2{
+    text-align: center;
+    padding: 2.5rem;
+}
+ul{
+    display: grid;
+    grid-template-columns:repeat(7,1fr);
+    flex-wrap: wrap;
+    text-align: center;
+    margin: auto;
+    /* border-top:1px solid rgba(0, 0, 0, 0.4);
+    border-bottom:1px solid rgba(0, 0, 0, 0.4); */
+    padding: 0rem;
+}
+ul li{
+    color: rgb(216, 216, 216);
+    font-weight: 700;
+    margin:16px  auto;
+    border-radius: 8px;
+    justify-content: center;
+    width: 6rem;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    padding: 0.4rem;
+
+}
+ul li:hover{
+    background: rgba(106, 54, 165, 0.486);
+    border-radius: 13px;
+}
+
+.lis{
+margin: auto;
+    width:45rem;
+    padding: 0;
+}

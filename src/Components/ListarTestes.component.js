@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ResponderTeste from "./ResponderTeste.component";
 import axios from 'axios';
-import styles from "./ResponderTeste.module.css";
+import styles from "./ListarTeste.module.css";
 
 const ListarTeste = () => {
   const [testes, setTestes] = useState([]);
@@ -29,10 +29,11 @@ const ListarTeste = () => {
   };
 
   return (
-    <div className={styles.tudo}>
+    <div>
       {!testeSelecionado ? ( // se testeSelecionado for falso, renderiza a lista de testes
-        <div>
+        <div className={styles.content}>
           <h2>Lista de Testes</h2>
+          <div className={styles.lis}>
           <ul className={styles.listaTestes}>
             {testes.map((teste) => (
               <li key={teste._id} onClick={() => handleSelecionarTeste(teste)}>
@@ -40,6 +41,8 @@ const ListarTeste = () => {
               </li>
             ))}
           </ul>
+            </div>
+        
         </div>
       ) : ( // se for verdadeiro renderiza ResponderTeste
         <ResponderTeste teste={testeSelecionado} onVoltar={handleVoltar} />
