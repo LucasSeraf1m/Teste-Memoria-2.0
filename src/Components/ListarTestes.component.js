@@ -11,7 +11,7 @@ const ListarTeste = () => {
     const fetchTestes = async () => {
       try {
         const response = await axios.get('http://localhost:1000/api/testes');
-        setTestes(response.data.map((item) => item.testes[0]));
+        setTestes(response.data.map((item) => item.testes[0])); // atualiza o estado testes com os dados recebidos do servidor
       } catch (error) {
         console.error(error);
       }
@@ -21,7 +21,7 @@ const ListarTeste = () => {
   }, []);
 
   const handleSelecionarTeste = (teste) => {
-    setTesteSelecionado(teste);
+    setTesteSelecionado(teste); // atualiza o estado com o teste selecionado
   };
 
   const handleVoltar = () => {
@@ -30,7 +30,7 @@ const ListarTeste = () => {
 
   return (
     <div className={styles.tudo}>
-      {!testeSelecionado ? (
+      {!testeSelecionado ? ( // se testeSelecionado for falso, renderiza a lista de testes
         <div>
           <h2>Lista de Testes</h2>
           <ul className={styles.listaTestes}>
@@ -41,7 +41,7 @@ const ListarTeste = () => {
             ))}
           </ul>
         </div>
-      ) : (
+      ) : ( // se for verdadeiro renderiza ResponderTeste
         <ResponderTeste teste={testeSelecionado} onVoltar={handleVoltar} />
       )}
     </div>

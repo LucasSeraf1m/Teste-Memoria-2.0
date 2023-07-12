@@ -6,7 +6,7 @@ import styles from "./LoginCadastroUsuario.module.css";
 function LoginUsuario() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
-  const [islogin, setIsLogin] = useState(false);
+  const [islogin, setIsLogin] = useState(false); // controla se o usuário está logado ou não
   const navigate = useNavigate();
 
   async function hadleSubmit(e) {

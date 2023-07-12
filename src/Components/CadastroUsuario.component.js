@@ -3,15 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginCadastroUsuario.module.css";
 
-// import { Link, NavLink } from "react-router-dom";
-
 export default function CadastrarUsuario() {
-  const [usuario, setUsuario] = useState("");
+  const [usuario, setUsuario] = useState(""); // useState cria os estados e suas funções
   const [senha, setSenha] = useState("");
-  const [islogin, setIsLogin] = useState(false);
-  const navigate = useNavigate();
-
-  // const [error, setError] = useState('');
+  const navigate = useNavigate(); // permite navegar para outras rotas
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,13 +15,9 @@ export default function CadastrarUsuario() {
         usuario,
         senha,
       });
-      setIsLogin(true);
 
       navigate("/login");
 
-      if (islogin) {
-        return navigate("/login", { replace: true });
-      }
       setUsuario("");
       setSenha("");
     } catch (error) {
@@ -42,7 +33,7 @@ export default function CadastrarUsuario() {
         <input
           placeholder="Usuario"
           value={usuario}
-          onChange={(e) => setUsuario(e.target.value)}
+          onChange={(e) => setUsuario(e.target.value)} // atualiza o estado com o valor digitado
           type="text"
         ></input>
         <input

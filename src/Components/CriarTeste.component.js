@@ -9,21 +9,21 @@ const CriarTeste = () => {
   const [mostrarCriarPergunta, setMostrarCriarPergunta] = useState(false);
   const [testeSelecionado, setTesteSelecionado] = useState(null);
 
-  useEffect(() => {
+  useEffect(() => { // requisit os testes assim que o componente é renderizado
     const fetchTestes = async () => {
       try {
         const response = await axios.get("http://localhost:1000/api/testes");
-        setTestes(response.data.map((item) => item.testes[0])); // Ajuste para extrair o primeiro item do array "testes"
+        setTestes(response.data.map((item) => item.testes[0])); // extrair o primeiro item do array testes
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchTestes();
+    fetchTestes(); // executada quando o componente é montado
   }, []);
 
   const handleNomeTesteChange = (event) => {
-    setNomeTeste(event.target.value);
+    setNomeTeste(event.target.value); // atualiza o estado com o valor digitado
   };
 
   const handleCriarTeste = async () => {
@@ -45,24 +45,41 @@ const CriarTeste = () => {
   };
 
   const handleSelecionarTeste = (nomeTeste) => {
-    const testeSelecionado = testes.find(
-      (teste) => teste.nomeTeste === nomeTeste
-    );
+    const testeSelecionado = testes.find((teste) => teste.nomeTeste === nomeTeste); // recebe o nome do teste como argumento e encontra o teste correspondente no estado testes
     setTesteSelecionado(testeSelecionado);
     setMostrarCriarPergunta(true);
   };
 
-  const atualizarPerguntas = (perguntasAtualizadas) => {
-    const testeAtualizado = { ...testeSelecionado };
-    testeAtualizado.perguntas = perguntasAtualizadas;
-    const testesAtualizados = testes.map((teste) => {
-      if (teste._id === testeAtualizado._id) {
-        return testeAtualizado;
+  const atualizarPerguntas = async (perguntasAtualizadas) => {
+    try {
+      if (!testeSelecionado || !perguntasAtualizadas) {
+        console.error("Teste selecionado ou perguntas não estão definidos corretamente.");
+        return;
       }
-      return teste;
-    });
-    setTestes(testesAtualizados);
-  };  
+
+      const testeAtualizado = {
+        ...testeSelecionado,
+        perguntas: perguntasAtualizadas,
+      };
+
+      await axios.put(
+        `http://localhost:1000/api/cadastroTeste/${testeSelecionado._id}`,
+        testeAtualizado
+      );
+
+      const testesAtualizados = testes.map((teste) => {
+        if (teste._id === testeAtualizado._id) {
+          return testeAtualizado;
+        }
+        return teste;
+      });
+
+      setTestes(testesAtualizados);
+    } catch (error) {
+      console.error(error);
+      // Tratamento de erros
+    }
+  };
 
   return (
     <div>
@@ -89,7 +106,7 @@ const CriarTeste = () => {
           ))}
         </ul>
       </div>
-      {mostrarCriarPergunta && testeSelecionado && (
+      {mostrarCriarPergunta && testeSelecionado && ( // se o estado mostrarCriarPergunta for verdadeiro e testeSelecionado for definido, o componente CriarPergunta é renderizado
         <CriarPergunta
           testeSelecionado={testeSelecionado}
           onPerguntasAtualizadas={atualizarPerguntas}

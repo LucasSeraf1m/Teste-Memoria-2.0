@@ -5,44 +5,38 @@ import styles from "./CriarTeste.module.css";
 const CriarPergunta = ({ testeSelecionado, onPerguntasAtualizadas }) => {
   const [perguntas, setPerguntas] = useState([]);
 
-  useEffect(() => {
-    if (testeSelecionado) {
-      setPerguntas(testeSelecionado.perguntas);
+  useEffect(() => { // useEffect executa um efeito quando o valor de testeSelecionado muda
+    if (testeSelecionado) { // se testeSelecionado possui um valor
+      setPerguntas(testeSelecionado.perguntas); // o estado perguntas é atualizado
     }
   }, [testeSelecionado]);
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
-    const newPerguntas = [...perguntas];
-    newPerguntas[index][name] = value;
+    const newPerguntas = [...perguntas]; // cria uma cópia do estado perguntas
+    newPerguntas[index][name] = value; // o campo específico da pergunta é atualizado
     setPerguntas(newPerguntas);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => { // lida com o envio do formulário de perguntas
     event.preventDefault();
-  
+
     try {
-      if (!testeSelecionado || !perguntas) {
-        console.error("Teste selecionado ou perguntas não estão definidos corretamente.");
-        return;
-      }
-  
       const testeAtualizado = {
         ...testeSelecionado,
-        perguntas: perguntas,
+        perguntas: perguntas, // atualiza o campo perguntas com o valor atualizado do estado perguntas
       };
-  
+
       await axios.put(
         `http://localhost:1000/api/cadastroTeste/${testeSelecionado._id}`,
         testeAtualizado
       );
+
       onPerguntasAtualizadas(perguntas);
-      // Lógica adicional após a atualização do teste
     } catch (error) {
       console.error(error);
-      // Tratamento de erros
     }
-  }; 
+  };
 
   const addPergunta = () => {
     setPerguntas([

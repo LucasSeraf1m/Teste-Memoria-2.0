@@ -17,7 +17,7 @@ const Resultados = () => {
     fetchTestesRealizados();
   }, []);
 
-  // Ordena os testes realizados pela maior quantidade de perguntas respondidas e respostas corretas
+  // ordena os testes realizados pela maior quantidade de perguntas respondidas e respostas corretas
   const ordenarTestesRealizados = () => {
     const sortedTestesRealizados = [...testesRealizados].sort(
       (a, b) =>

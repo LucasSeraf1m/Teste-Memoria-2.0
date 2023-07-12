@@ -3,14 +3,13 @@ import styles from "./ResponderTeste.module.css";
 import axios from "axios";
 
 const ResponderTeste = ({ teste, onVoltar }) => {
-  const [respostas, setRespostas] = useState({});
-  const [pontuacao, setPontuacao] = useState(0);
-  const [submetido, setSubmetido] = useState(false);
-  const [perguntasEmbaralhadas, setPerguntasEmbaralhadas] = useState([]);
+  const [respostas, setRespostas] = useState({}); // armazena as respostas
+  const [pontuacao, setPontuacao] = useState(0); // armazena a pontuação obtida
+  const [submetido, setSubmetido] = useState(false); // controla se o teste foi submetido
+  const [perguntasEmbaralhadas, setPerguntasEmbaralhadas] = useState([]); // armazena as perguntas em ordem aleatória
 
   useEffect(() => {
-    // Embaralhar as perguntas ao inicializar o componente
-    const embaralharPerguntas = () => {
+    const embaralharPerguntas = () => { // embaralha as perguntas ao iniciar o componente
       const perguntasCopiadas = [...teste.perguntas];
       const perguntasEmbaralhadas = [];
 
@@ -26,19 +25,19 @@ const ResponderTeste = ({ teste, onVoltar }) => {
     embaralharPerguntas();
   }, [teste.perguntas]);
 
-  const handleRespostaChange = (perguntaId, alternativa) => {
+  const handleRespostaChange = (perguntaId, alternativa) => { // atualiza as respostas selecionadas pelo usuário
     setRespostas((prevRespostas) => ({
       ...prevRespostas,
       [perguntaId]: alternativa,
     }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => { 
     event.preventDefault();
 
     let novaPontuacao = 0;
     perguntasEmbaralhadas.forEach((pergunta) => {
-      if (respostas[pergunta._id] === pergunta[pergunta.alternativaCerta]) {
+      if (respostas[pergunta._id] === pergunta[pergunta.alternativaCerta]) { // compara as respostas selecionadas com as alternativas corretas
         novaPontuacao += 1;
       }
     });
@@ -54,7 +53,6 @@ const ResponderTeste = ({ teste, onVoltar }) => {
 
     try {
       const response = await axios.post("http://localhost:1000/api/testeRealizado", testeRealizadoData);
-      console.log(response.data); // Exibe a resposta do servidor (opcional)
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +66,7 @@ const ResponderTeste = ({ teste, onVoltar }) => {
     <div>
       <h2>Responder Teste</h2>
       <form onSubmit={handleSubmit}>
-        {perguntasEmbaralhadas.map((pergunta) => (
+        {perguntasEmbaralhadas.map((pergunta) => ( // mapeia as perguntas embaralhadas e exibe cada pergunta com as opções de resposta
           <div key={pergunta._id}>
             <h3>{pergunta.pergunta}</h3>
             <div>
@@ -80,7 +78,7 @@ const ResponderTeste = ({ teste, onVoltar }) => {
                   value={pergunta.itemA}
                   checked={respostas[pergunta._id] === pergunta.itemA}
                   onChange={() =>
-                    handleRespostaChange(pergunta._id, pergunta.itemA)
+                    handleRespostaChange(pergunta._id, pergunta.itemA) // atualiza o estado respostas com a resposta selecionada pelo usuário
                   }
                   disabled={submetido}
                 />

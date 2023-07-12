@@ -47,12 +47,12 @@ router.post("/login", async (req, res) => {
 
 router.post("/cadastroTeste", async (req, res) => {
   try {
-    const { testes } = req.body;
+    const { testes } = req.body; // extrai o valor do campo "testes" do corpo da requisição
 
-    const post = new cadastroTest({ testes });
+    const post = new cadastroTest({ testes }); // cria um novo documento com o campo "testes" preenchido com o valor extraído do corpo da requisição
     await post.save();
 
-    console.log(post);
+    console.log(post); // resposta de sucesso
     return res.status(201).send(post);
   } catch (error) {
     console.error(error);
@@ -60,26 +60,25 @@ router.post("/cadastroTeste", async (req, res) => {
   }
 });
 
-router.get('/testes', async (req, res) => {
+router.get("/testes", async (req, res) => {
   try {
-    const testes = await cadastroTest.find(); // Buscar todos os documentos da coleção de testes
+    const testes = await cadastroTest.find(); // busca todos os documentos na coleção "cadastroTest" do banco
     res.status(200).json(testes);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erro ao buscar os testes.' });
+    res.status(500).json({ message: "Erro ao buscar os testes." });
   }
 });
 
 router.put("/cadastroTeste/:id", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params; // obtém o valor do parâmetro na URL
     const testeAtualizado = req.body;
 
-    // Encontra e atualiza o teste pelo ID
-    const updatedTeste = await cadastroTest.findOneAndUpdate(
+    const updatedTeste = await cadastroTest.findOneAndUpdate( // encontra e atualiza o teste pelo ID
       { _id: id },
       testeAtualizado,
-      { new: true }
+      { new: true } // retorna o documento atualizado
     );
 
     res.json(updatedTeste);
@@ -89,27 +88,27 @@ router.put("/cadastroTeste/:id", async (req, res) => {
   }
 });
 
-router.post('/testeRealizado', async (req, res) => {
+router.post("/testeRealizado", async (req, res) => {
   try {
-    const { teste, qtd_perguntas, qtd_acertos } = req.body;
+    const { teste, qtd_perguntas, qtd_acertos } = req.body; // extrai os valores
 
-    const testeRealizado = new TesteRealizado({
+    const testeRealizado = new TesteRealizado({ // cria instância com os campos preenchidos
       nomeTeste: teste,
       qtd_perguntas,
       qtd_acertos,
     });
 
-    const savedTesteRealizado = await testeRealizado.save();
+    const savedTesteRealizado = await testeRealizado.save(); // salva no banco
     res.status(201).json(savedTesteRealizado);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erro ao salvar o teste realizado.' });
+    res.status(500).json({ message: "Erro ao salvar o teste realizado." });
   }
 });
 
 router.get("/testesRealizados", async (req, res) => {
   try {
-    const testesRealizados = await TesteRealizado.find().sort({
+    const testesRealizados = await TesteRealizado.find().sort({ // busca os documentos de TesteRealizado e ordena do maior para o menor
       qtd_perguntas: -1,
       qtd_acertos: -1,
     });
