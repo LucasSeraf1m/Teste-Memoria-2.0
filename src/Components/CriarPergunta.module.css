@@ -1,37 +1,29 @@
-.content{
-
-display: flex;
-justify-content: center;
-margin-top: 5rem;
+.content {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
 }
-.nomeTeste{
-    text-align: center;
-    width: 100%;
-    margin-bottom: 3rem;
-
-
+.nomeTeste {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 3rem;
 }
-.nomeTeste input{
-    text-align: center;
- 
-
-
+.nomeTeste input {
+  text-align: center;
 }
-.content form button{
-color: brown;
-width: 10rem;
-margin-top: 1rem;
+.content form button {
+  width: 10rem;
+  margin-top: 1rem;
 }
-.listaPerguntas{
-    display: grid;
+.listaPerguntas {
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-text-align: center; 
-gap: 1rem;
+  text-align: center;
+  gap: 1rem;
 }
-.pergunta{
-    
-    margin-bottom: 1.1rem;
+.pergunta {
+  margin-bottom: 1.1rem;
 }
-.item{
-    margin-bottom:0.3rem ;
+.item {
+  margin-bottom: 0.3rem;
 }
