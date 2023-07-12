@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 // importação dos schemas
 const cadastro = require("./model/cadastrarUsuario");
 const cadastroTest = require("./model/cadastroTeste");
+const TesteRealizado = require("./model/testeRealizado");
 
 router.post("/cadastro", async (req, res) => {
   try {
@@ -85,6 +86,37 @@ router.put("/cadastroTeste/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Ocorreu um erro ao atualizar o teste." });
+  }
+});
+
+router.post('/testeRealizado', async (req, res) => {
+  try {
+    const { teste, qtd_perguntas, qtd_acertos } = req.body;
+
+    const testeRealizado = new TesteRealizado({
+      nomeTeste: teste,
+      qtd_perguntas,
+      qtd_acertos,
+    });
+
+    const savedTesteRealizado = await testeRealizado.save();
+    res.status(201).json(savedTesteRealizado);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao salvar o teste realizado.' });
+  }
+});
+
+router.get("/testesRealizados", async (req, res) => {
+  try {
+    const testesRealizados = await TesteRealizado.find().sort({
+      qtd_perguntas: -1,
+      qtd_acertos: -1,
+    });
+    res.status(200).json(testesRealizados);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erro ao buscar os testes realizados." });
   }
 });
 

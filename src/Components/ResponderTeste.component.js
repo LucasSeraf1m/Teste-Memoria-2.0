@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ResponderTeste.module.css";
+import axios from "axios";
 
-const ResponderTeste = ({ teste }) => {
+const ResponderTeste = ({ teste, onVoltar }) => {
   const [respostas, setRespostas] = useState({});
   const [pontuacao, setPontuacao] = useState(0);
   const [submetido, setSubmetido] = useState(false);
+  const [perguntasEmbaralhadas, setPerguntasEmbaralhadas] = useState([]);
+
+  useEffect(() => {
+    // Embaralhar as perguntas ao inicializar o componente
+    const embaralharPerguntas = () => {
+      const perguntasCopiadas = [...teste.perguntas];
+      const perguntasEmbaralhadas = [];
+
+      while (perguntasCopiadas.length > 0) {
+        const randomIndex = Math.floor(Math.random() * perguntasCopiadas.length);
+        const perguntaSelecionada = perguntasCopiadas.splice(randomIndex, 1)[0];
+        perguntasEmbaralhadas.push(perguntaSelecionada);
+      }
+
+      setPerguntasEmbaralhadas(perguntasEmbaralhadas);
+    };
+
+    embaralharPerguntas();
+  }, [teste.perguntas]);
 
   const handleRespostaChange = (perguntaId, alternativa) => {
     setRespostas((prevRespostas) => ({
@@ -13,30 +33,48 @@ const ResponderTeste = ({ teste }) => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     let novaPontuacao = 0;
-    teste.perguntas.forEach((pergunta) => {
-      if (respostas[pergunta._id] === pergunta.alternativaCerta) {
+    perguntasEmbaralhadas.forEach((pergunta) => {
+      if (respostas[pergunta._id] === pergunta[pergunta.alternativaCerta]) {
         novaPontuacao += 1;
       }
     });
 
     setPontuacao(novaPontuacao);
     setSubmetido(true);
+
+    const testeRealizadoData = {
+      teste: teste.nomeTeste,
+      qtd_perguntas: Object.keys(respostas).length,
+      qtd_acertos: novaPontuacao,
+    };
+
+    try {
+      const response = await axios.post("http://localhost:1000/api/testeRealizado", testeRealizadoData);
+      console.log(response.data); // Exibe a resposta do servidor (opcional)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleVoltar = () => {
+    onVoltar();
   };
 
   return (
     <div>
       <h2>Responder Teste</h2>
       <form onSubmit={handleSubmit}>
-        {teste.perguntas.map((pergunta) => (
+        {perguntasEmbaralhadas.map((pergunta) => (
           <div key={pergunta._id}>
             <h3>{pergunta.pergunta}</h3>
             <div>
               <label>
                 <input
+                  className={styles.input}
                   type="radio"
                   name={`pergunta_${pergunta._id}`}
                   value={pergunta.itemA}
@@ -44,7 +82,7 @@ const ResponderTeste = ({ teste }) => {
                   onChange={() =>
                     handleRespostaChange(pergunta._id, pergunta.itemA)
                   }
-                  disabled={submetido} // Desabilita as opções de resposta após submeter
+                  disabled={submetido}
                 />
                 {pergunta.itemA}
               </label>
@@ -52,6 +90,7 @@ const ResponderTeste = ({ teste }) => {
             <div>
               <label>
                 <input
+                  className={styles.input}
                   type="radio"
                   name={`pergunta_${pergunta._id}`}
                   value={pergunta.itemB}
@@ -67,6 +106,7 @@ const ResponderTeste = ({ teste }) => {
             <div>
               <label>
                 <input
+                  className={styles.input}
                   type="radio"
                   name={`pergunta_${pergunta._id}`}
                   value={pergunta.itemC}
@@ -82,6 +122,7 @@ const ResponderTeste = ({ teste }) => {
             <div>
               <label>
                 <input
+                  className={styles.input}
                   type="radio"
                   name={`pergunta_${pergunta._id}`}
                   value={pergunta.itemD}
@@ -99,8 +140,11 @@ const ResponderTeste = ({ teste }) => {
         <button type="submit" disabled={submetido}>
           Enviar Respostas
         </button>
+        <button type="button" onClick={handleVoltar}>
+          Voltar
+        </button>
       </form>
-      {submetido && <p className={styles}>Pontuação: {pontuacao}</p>}
+      {submetido && <p>Pontuação: {pontuacao}</p>}
     </div>
   );
 };

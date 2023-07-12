@@ -1,3 +1,18 @@
 p{
     color: white;
 }
+.listaTestes{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    padding-left: 0px;
+}
+
+.tudo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input{
+    width: 5rem;
+}

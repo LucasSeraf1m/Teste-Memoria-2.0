@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ResponderTeste from "./ResponderTeste.component";
 import axios from 'axios';
+import styles from "./ResponderTeste.module.css";
 
 const ListarTeste = () => {
   const [testes, setTestes] = useState([]);
@@ -28,11 +29,11 @@ const ListarTeste = () => {
   };
 
   return (
-    <div>
+    <div className={styles.tudo}>
       {!testeSelecionado ? (
         <div>
           <h2>Lista de Testes</h2>
-          <ul>
+          <ul className={styles.listaTestes}>
             {testes.map((teste) => (
               <li key={teste._id} onClick={() => handleSelecionarTeste(teste)}>
                 {teste.nomeTeste}

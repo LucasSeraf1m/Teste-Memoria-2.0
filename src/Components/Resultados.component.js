@@ -1,24 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-class Resultados extends React.Component {
-  render() {
-    return (
-      <body class="bg-degrade">
-        <div id="lista-resultados"></div>
-        <script src="../js/ver_resultados.js"></script>{" "}
-        <script
-          src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
-          integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
-          crossorigin="anonymous"
-        ></script>
-        <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
-          integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
-          crossorigin="anonymous"
-        ></script>
-      </body>
+const Resultados = () => {
+  const [testesRealizados, setTestesRealizados] = useState([]);
+
+  useEffect(() => {
+    const fetchTestesRealizados = async () => {
+      try {
+        const response = await axios.get("http://localhost:1000/api/testesRealizados");
+        setTestesRealizados(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTestesRealizados();
+  }, []);
+
+  // Ordena os testes realizados pela maior quantidade de perguntas respondidas e respostas corretas
+  const ordenarTestesRealizados = () => {
+    const sortedTestesRealizados = [...testesRealizados].sort(
+      (a, b) =>
+        b.qtd_perguntas_respondidas - a.qtd_perguntas_respondidas ||
+        b.qtd_acertos - a.qtd_acertos
     );
-  }
-}
+    return sortedTestesRealizados;
+  };
+
+  return (
+    <div>
+      <h2>Resultados</h2>
+      <ul>
+        {ordenarTestesRealizados().map((testeRealizado) => (
+          <li key={testeRealizado._id}>
+            <p>Nome do Teste: {testeRealizado.nomeTeste}</p>
+            <p>Perguntas Respondidas: {testeRealizado.qtd_perguntas}</p>
+            <p>Respostas Corretas: {testeRealizado.qtd_acertos}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 export default Resultados;
